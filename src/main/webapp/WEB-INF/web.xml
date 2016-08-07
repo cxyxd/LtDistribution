@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.5"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  
+ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<display-name>Archetype Created Web Application</display-name>
+
+
+	<listener>
+		<listener-class>com.dlf.lt.mather.UpdateMyStore</listener-class>
+	</listener>
+	
+	
+	
+	
+	<servlet>
+		<servlet-name>UploadWar</servlet-name>
+		<servlet-class>com.dlf.lt.mather.UploadWar</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>getAllSons</servlet-name>
+		<servlet-class>com.dlf.lt.mather.getAllSons</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DistributeFile</servlet-name>
+		<servlet-class>com.dlf.lt.mather.DistributeFile</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DistributeAllFiles</servlet-name>
+		<servlet-class>com.dlf.lt.mather.DistributeAllFiles</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ShowStatus</servlet-name>
+		<servlet-class>com.dlf.lt.mather.ShowStatus</servlet-class>
+	</servlet>
+
+
+
+
+
+	<servlet-mapping>
+		<servlet-name>UploadWar</servlet-name>
+		<url-pattern>/servlet/UploadWar</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getAllSons</servlet-name>
+		<url-pattern>/servlet/getAllSons</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DistributeFile</servlet-name>
+		<url-pattern>/servlet/DistributeFile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DistributeAllFiles</servlet-name>
+		<url-pattern>/servlet/DistributeAllFiles</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ShowStatus</servlet-name>
+		<url-pattern>/servlet/ShowStatus</url-pattern>
+	</servlet-mapping>
+</web-app>
