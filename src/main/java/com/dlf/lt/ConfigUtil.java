@@ -128,6 +128,14 @@ public class ConfigUtil {
 		return address;
 	}
 	
+	public static String getRestartLocation(){
+		if (bundle == null) 
+			bundle = ResourceBundle.getBundle("localFileLocation");
+		
+		String s = bundle.getString("tomcatRestart");
+		return s;
+	}
+	
 	private static List<Address> allSons;
 	private static  ResourceBundle bundle;  
 	 
