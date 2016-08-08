@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -25,6 +27,15 @@ public class UpdateMyStore  implements ServletContextListener{
 				
 			}
 		}).start();
+		
+		Map<String, Integer> map=VersionsManager.getMap();
+		if (map==null) {
+			List<Address> list= ConfigUtil.getAllSon();
+			for (Address add:list) {
+				map.put(add.getIp(), 0);
+			}
+		}
+		MyStore.versionMap=map;
 		
 	}  
 	
@@ -62,6 +73,7 @@ public class UpdateMyStore  implements ServletContextListener{
 					}
 					
 					MyStore.getFilesSon.add(address);
+					updateVersion(address.getIp());
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				} finally {
@@ -73,6 +85,14 @@ public class UpdateMyStore  implements ServletContextListener{
 
 				}
 			}
+
+			private void updateVersion(String string) {
+				Map<String, Integer> versions=VersionsManager.getMap();
+				int perviousVersion=versions.get(string);
+				versions.put(string, perviousVersion+1);
+				MyStore.versionMap=versions;
+				VersionsManager.persistentMap(versions);
+			}
 		}).start();
 	}
 
@@ -81,6 +101,7 @@ public class UpdateMyStore  implements ServletContextListener{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 
 

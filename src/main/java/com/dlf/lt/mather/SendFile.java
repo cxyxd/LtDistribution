@@ -21,7 +21,7 @@ public class SendFile {
 	public static void sendObject (Address address, List<Address> adds) { 
 		try {
 			InetAddress addr = InetAddress.getByName(address.getIp());
-			System.out.println("我要给"+address+" 发送很多消息");
+			System.out.println("我要给 "+address+" 这个son_trunk 发送很多消息 ");
 			ObjectOutputStream os=null;
 			for (int i=0;i<adds.size();i++) {
 				Socket socket = new Socket(addr, ConfigUtil.toSonTrunkAddressList);
@@ -42,6 +42,7 @@ public class SendFile {
 		}
 		
 	}
+
 	
 	
 	public static void sendfile (String localFileLocation, Address add, String from) { 
