@@ -48,7 +48,7 @@ public class ShowStatus extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Address> list=new ArrayList<>();
+		List<Address> list=new ArrayList<>(); 
 		
 		list.addAll(MyStore.notGetFilesSon);
 		list.addAll(MyStore.getFilesSon);
