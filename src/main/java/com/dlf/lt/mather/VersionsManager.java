@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,7 +18,7 @@ public class VersionsManager {
      //   writer();//自己可以注释掉代码试试
         getMap();
     }
-    public static void  persistentMap(Map map){
+    public static void  persistentMap(Map<?, ?> map){
 
 		File f=null;
 		try {
@@ -48,7 +47,8 @@ public class VersionsManager {
             }
         }
     }
-    public static Map<String,Integer> getMap(){
+    @SuppressWarnings("unchecked")
+	public static Map<String,Integer> getMap(){
     	 Map<String,Integer> map= null;
     	 File f=null;
  		try {
@@ -59,6 +59,7 @@ public class VersionsManager {
  		} catch (Exception e) {
  			f = new File("src/main/resources/versions.txt");
  		}
+ 		
         ObjectInputStream ois = null;
         try {
             ois = new ObjectInputStream(new FileInputStream(f));

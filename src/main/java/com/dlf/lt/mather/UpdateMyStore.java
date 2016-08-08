@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import com.dlf.lt.Address;
 import com.dlf.lt.ConfigUtil;
 import com.dlf.lt.MyStore;
 
+
 public class UpdateMyStore  implements ServletContextListener{
 	
 	@Override
@@ -26,11 +28,12 @@ public class UpdateMyStore  implements ServletContextListener{
 				UpdateMyStore.waiteUpdate();
 				
 			}
-		}).start();
+		}).start(); 
 		
 		Map<String, Integer> map=VersionsManager.getMap();
 		if (map==null) {
 			List<Address> list= ConfigUtil.getAllSon();
+			map=new HashMap<String, Integer>();
 			for (Address add:list) {
 				map.put(add.getIp(), 0);
 			}
