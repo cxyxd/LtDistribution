@@ -84,7 +84,7 @@ public class ReceiveFile {
 			// 创建网络服务器接受客户请求
 			ServerSocket ss = new ServerSocket(ConfigUtil.toSon);
 			Socket client = ss.accept();
-			
+			deltetFile();
 	        // 通过Socket连接文件服务器
 	 //       Socket server=new Socket(InetAddress.getLocalHost(),3108);
 	       
@@ -108,6 +108,11 @@ public class ReceiveFile {
 			e.printStackTrace();
 		}
 		
+	}
+
+	private static void deltetFile() {
+		File f=new File(ConfigUtil.getLocalFileLocationSon());
+		f.delete();
 	}
 
 	
