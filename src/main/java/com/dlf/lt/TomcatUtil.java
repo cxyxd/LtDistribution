@@ -20,12 +20,52 @@ public class TomcatUtil {
 		public static void restartMyTomcat() {
 			String location=ConfigUtil.getRestartLocation();
 			
-			createCmdFile(location);
+			createStopCmdFile(location);
 			executeCmd(location);
 			  
 			
 		}
+		public static void main(String[] args) {
+			String location=ConfigUtil.getRestartLocation();
+			
+			
+			//删除命令执行后 cmd就退出了 没办法 只能改成两个命令
+			createStopCmdFile(location);
+			executeCmd(location);
+			createStartCmdFile(location);
+			executeCmd(location);
+			System.out.println(location);
+			
+		}
+		
 
+
+		/**
+		 * @param location
+		 */
+		private static void createStartCmdFile(String location) {
+
+			File f = new File(location + "\\bin\\restart.bat");
+			try {
+				FileWriter fw = new FileWriter(f);
+				BufferedWriter bw = new BufferedWriter(fw);
+				 //下面的必须加上
+				bw.write("set CATALINA_HOME=" + location);
+				bw.newLine();
+				bw.write(" ping 127.0.0.1 -n 5  1>nul ");
+				bw.newLine();
+				bw.write("call " + f.getParent() + "\\startup.bat ");
+
+				bw.close();
+				fw.close();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		
+			
+		}
 		private static void executeCmd(String location) {
 			System.out.println(location);
 			Runtime run = Runtime.getRuntime();
@@ -45,19 +85,24 @@ public class TomcatUtil {
 
 		}
 
-		private static void createCmdFile(String location) {
+		private static void createStopCmdFile(String location) {
 			File f = new File(location + "\\bin\\restart.bat");
+			String projectName=ConfigUtil.getProjectName();
 			try {
 				FileWriter fw = new FileWriter(f);
 				BufferedWriter bw = new BufferedWriter(fw);
 				 //下面的必须加上
 				bw.write("set CATALINA_HOME=" + location);
 				bw.newLine();
-				bw.write("call " + f.getParent() + "\\bin\\shutdown.bat");
+				bw.write("call " + f.getParent() + "\\shutdown.bat");
 				bw.newLine();
-				bw.write(" ping 127.0.0.1 -n 5  1>nul ");
-				bw.newLine();
-				bw.write("call " + f.getParent() + "\\bin\\startup.bat ");
+				String location2=location+"\\webapps\\"+projectName;
+				location2=location2.replaceAll("/","\\\\"); 
+				bw.write("rd /s/q " + location2);
+//				bw.newLine();
+//				bw.write(" ping 127.0.0.1 -n 5  1>nul ");
+//				bw.newLine();
+//				bw.write("call " + f.getParent() + "\\bin\\startup.bat ");
 
 				bw.close();
 				fw.close();

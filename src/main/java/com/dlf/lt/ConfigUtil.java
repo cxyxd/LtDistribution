@@ -136,6 +136,17 @@ public class ConfigUtil {
 		return s;
 	}
 	
+	/**
+	 * @return
+	 */
+	public static String getProjectName() {
+		if (bundle == null) 
+			bundle = ResourceBundle.getBundle("localFileLocation");
+		
+		String s = bundle.getString("projectName");
+		return s;
+	}
+	
 	private static List<Address> allSons;
 	private static  ResourceBundle bundle;  
 	 
@@ -228,4 +239,6 @@ public class ConfigUtil {
 	public static void main(String[] args) {
 
 	}
+
+
 }
