@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 public class TomcatUtil {
 	
-	//参考资料 http://java0note.blog.51cto.com/469557/109839
+	    //参考资料 http://java0note.blog.51cto.com/469557/109839
 		//http://wenku.baidu.com/link?url=xndX6BSzgVasvy9FX1gf2XLSTq-euP1wwfrH0k2xKSkzLe9QOLlryZUZbq9a8LPuNbAub9lYRNjVlj-xanRJle7ENzBrS-a28biE4mMGqc3
 		
 		/**
@@ -20,8 +20,13 @@ public class TomcatUtil {
 		public static void restartMyTomcat() {
 			String location=ConfigUtil.getRestartLocation();
 			
-			createStopCmdFile(location);
+			//删除命令执行后 cmd就退出了 没办法 只能改成两个命令
+			createStopCmdFileAndDeleteDirectory(location);
 			executeCmd(location);
+			deltetFile();
+			createStartCmdFile(location);
+			executeCmd(location);
+			System.out.println(location);
 			  
 			
 		}
@@ -30,8 +35,9 @@ public class TomcatUtil {
 			
 			
 			//删除命令执行后 cmd就退出了 没办法 只能改成两个命令
-			createStopCmdFile(location);
+			createStopCmdFileAndDeleteDirectory(location);
 			executeCmd(location);
+			deltetFile();
 			createStartCmdFile(location);
 			executeCmd(location);
 			System.out.println(location);
@@ -85,7 +91,7 @@ public class TomcatUtil {
 
 		}
 
-		private static void createStopCmdFile(String location) {
+		private static void createStopCmdFileAndDeleteDirectory(String location) {
 			File f = new File(location + "\\bin\\restart.bat");
 			String projectName=ConfigUtil.getProjectName();
 			try {
@@ -99,10 +105,6 @@ public class TomcatUtil {
 				String location2=location+"\\webapps\\"+projectName;
 				location2=location2.replaceAll("/","\\\\"); 
 				bw.write("rd /s/q " + location2);
-//				bw.newLine();
-//				bw.write(" ping 127.0.0.1 -n 5  1>nul ");
-//				bw.newLine();
-//				bw.write("call " + f.getParent() + "\\bin\\startup.bat ");
 
 				bw.close();
 				fw.close();
@@ -112,6 +114,15 @@ public class TomcatUtil {
 			}
 
 		}
+		
+		/**
+		 * delete war
+		 */
+		private static void deltetFile() {
+			File f=new File(ConfigUtil.getLocalFileLocationSon());
+			f.delete();
+		}
+
 
 
 }
